@@ -1,0 +1,36 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'org.akhikhl.gretty'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    compile 'org.springframework:spring-webmvc:4.3.1.RELEASE'
+    runtime 'javax.servlet:jstl:1.1.2'
+    providedCompile 'javax.servlet:javax.servlet-api:3.0.1'
+}
+
+//Gretty Embedded Jetty
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'org.akhikhl.gretty:gretty:+'
+    }
+}
+
+
+
+gretty {
+    port = 8080
+    contextPath = 'spittr'
+    servletContainer = 'jetty9' //tomcat7 or tomcat8
+    managedClassReload = true
+    recompileOnSourceChange = true
+    fastReload = true
+}
